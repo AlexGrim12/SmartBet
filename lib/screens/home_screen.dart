@@ -90,7 +90,8 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         print('Add Funds');
                         // Agrega aquí la navegación a la pantalla de agregar fondos
-                        // Navigator.pushNamed(context, '/add_funds');
+                        Navigator.pushNamed(context, '/add_funds');
+
                       },
                       child: Container(
                         padding: const EdgeInsets.all(20.0),
@@ -192,7 +193,7 @@ class HomeScreen extends StatelessWidget {
           onTap: () {
             if (sports[index]['nombre'] == 'See All') {
               // Agrega aquí la navegación a la pantalla de todos los deportes
-              // Navigator.pushNamed(context, '/all_sports');
+              Navigator.pushNamed(context, '/all_sports');
             } else {
               Navigator.pushNamed(
                 context,
@@ -251,7 +252,7 @@ class HomeScreen extends StatelessWidget {
           onTap: () {
             if (leagues[index]['nombre'] == 'See All') {
               // Agrega aquí la navegación a la pantalla de todas las ligas
-              // Navigator.pushNamed(context, '/all_leagues');
+              Navigator.pushNamed(context, '/all_leagues');
             } else {
               Navigator.pushNamed(
                 context,
