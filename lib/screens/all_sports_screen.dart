@@ -12,6 +12,18 @@ class AllSportsScreen extends StatelessWidget {
       {'nombre': 'Tennis', 'icono': Icons.sports_tennis},
       {'nombre': 'Baseball', 'icono': Icons.sports_baseball},
       {'nombre': 'American Football', 'icono': Icons.sports_football},
+      {
+        'nombre': 'Ice Hockey',
+        'icono': Icons.sports_hockey,
+      },
+      {'nombre': 'Golf', 'icono': Icons.sports_golf},
+      {'nombre': 'MMA', 'icono': Icons.sports_mma},
+      {'nombre': 'Motorsports', 'icono': Icons.sports_motorsports},
+      {'nombre': 'Rugby', 'icono': Icons.sports_rugby},
+      {'nombre': 'Cricket', 'icono': Icons.sports_cricket},
+      {'nombre': 'Volleyball', 'icono': Icons.sports_volleyball},
+      {'nombre': 'Handball', 'icono': Icons.sports_handball},
+      {'nombre': 'Field Hockey', 'icono': Icons.sports_hockey},
       // ... más deportes
     ];
 

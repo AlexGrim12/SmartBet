@@ -1,7 +1,9 @@
+import 'package:aptos_hackathon/screens/bet_screen.dart';
+import 'package:aptos_hackathon/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,29 @@ class HomeScreen extends StatelessWidget {
         ),
         backgroundColor: const Color(0xFF2C2F33),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            },
+            icon: const Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Tarjetas de Balance y Agregar Fondos (Fila)
+            // Tarjetas de balance y agregar fondos
             Row(
               children: [
-                // Tarjeta de Balance
                 SizedBox(
                   width: 180,
                   child: Card(
@@ -63,7 +78,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16.0),
-                // Tarjeta de Agregar Fondos
                 SizedBox(
                   width: 180,
                   child: Card(
@@ -75,6 +89,8 @@ class HomeScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         print('Add Funds');
+                        // Agrega aquí la navegación a la pantalla de agregar fondos
+                        // Navigator.pushNamed(context, '/add_funds');
                       },
                       child: Container(
                         padding: const EdgeInsets.all(20.0),
@@ -104,7 +120,8 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20.0),
-            // Featured Sports (Horizontal)
+
+            // Featured Sports
             const Text(
               'Featured Sports',
               style: TextStyle(
@@ -116,10 +133,12 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10.0),
             SizedBox(
               height: 80.0,
-              child: _buildSportsList(),
+              child: _buildSportsList(context),
             ),
-            // Popular Leagues (Horizontal - Tarjetas cuadradas)
+
             const SizedBox(height: 20.0),
+
+            // Popular Leagues
             const Text(
               'Popular Leagues',
               style: TextStyle(
@@ -131,16 +150,32 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10.0),
             SizedBox(
               height: 100.0,
-              child: _buildLeaguesList(),
+              child: _buildLeaguesList(context),
             ),
-            // Resto del contenido de la pantalla...
+
+            const SizedBox(height: 20.0),
+
+            // Popular Matches
+            const Text(
+              'Popular Matches',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              height: 120.0,
+              child: _buildPopularMatchesList(context),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSportsList() {
+  Widget _buildSportsList(BuildContext context) {
     final List<Map<String, dynamic>> sports = [
       {'nombre': 'Soccer', 'icono': Icons.sports_soccer},
       {'nombre': 'Basketball', 'icono': Icons.sports_basketball},
@@ -156,9 +191,9 @@ class HomeScreen extends StatelessWidget {
         return InkWell(
           onTap: () {
             if (sports[index]['nombre'] == 'See All') {
-              Navigator.pushNamed(context, '/all_sports');
+              // Agrega aquí la navegación a la pantalla de todos los deportes
+              // Navigator.pushNamed(context, '/all_sports');
             } else {
-              // Navegar a LiveMatchesScreen con el nombre del deporte
               Navigator.pushNamed(
                 context,
                 '/live_matches',
@@ -199,7 +234,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLeaguesList() {
+  Widget _buildLeaguesList(BuildContext context) {
     final List<Map<String, dynamic>> leagues = [
       {'nombre': 'NCAA', 'icono': Icons.school},
       {'nombre': 'Olympics', 'icono': Icons.sports},
@@ -214,14 +249,22 @@ class HomeScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            // ... [Lógica para manejar el toque en las ligas]
+            if (leagues[index]['nombre'] == 'See All') {
+              // Agrega aquí la navegación a la pantalla de todas las ligas
+              // Navigator.pushNamed(context, '/all_leagues');
+            } else {
+              Navigator.pushNamed(
+                context,
+                '/live_matches',
+                arguments: {'sportName': leagues[index]['nombre']},
+              );
+            }
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Tarjeta para el logo de la liga
                 Card(
                   color: Colors.grey[800],
                   elevation: 4.0,
@@ -247,6 +290,105 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildPopularMatchesList(BuildContext context) {
+    final List<Map<String, dynamic>> popularMatches = [
+      {
+        'team1': 'Aptos Apes',
+        'team2': 'Solana Sharks',
+        'score': '2 - 1',
+      },
+      {
+        'team1': 'Ethereum Eagles',
+        'team2': 'Polygon Panthers',
+        'score': '0 - 0',
+      },
+      {
+        'team1': 'Bitcoin Bulls',
+        'team2': 'Cardano Cobras',
+        'score': '3 - 2',
+      },
+    ];
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: popularMatches.length,
+      itemBuilder: (context, index) {
+        final match = popularMatches[index];
+        return InkWell(
+          onTap: () {
+            // Agrega aquí la navegación a la pantalla de detalles del partido
+            // Puedes usar:
+            // Navigator.pushNamed(context, '/match_details', arguments: match);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BetScreen(
+                    team1: match['team1'],
+                    team2: match['team2'],
+                    score: match['score'],
+                  ),
+                ));
+          },
+          child: Container(
+            width: 220.0,
+            margin: const EdgeInsets.only(right: 16.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2C2F33),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        match['team1'],
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'vs',
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 14.0,
+                        ),
+                      ),
+                      Text(
+                        match['team2'],
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    match['score'],
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  
+                ],
+              ),
             ),
           ),
         );
